@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | ShopSphere</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+
+<i class="fa-solid fa-store"></i>
+
+<span>ShopSphere</span>
+
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="cart.html">Cart</a>
+
+<a href="orders.html">Orders</a>
+
+</div>
+
+</nav>
+
+<div class="checkout-container">
+
+<h2>Checkout</h2>
+
+<form id="checkoutForm">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Mobile Number"
+required>
+
+<textarea
+id="address"
+placeholder="Delivery Address"
+required></textarea>
+
+<input
+type="text"
+id="city"
+placeholder="City"
+required>
+
+<input
+type="text"
+id="pincode"
+placeholder="Pincode"
+required>
+
+<select id="payment" required>
+
+<option value="">Select Payment Method</option>
+
+<option>Cash on Delivery</option>
+
+<option>UPI</option>
+
+<option>Credit Card</option>
+
+<option>Debit Card</option>
+
+<option>Net Banking</option>
+
+</select>
+
+<button
+type="submit"
+class="place-order">
+
+Place Order
+
+</button>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("checkoutForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+if(cart.length==0){
+
+alert("Your cart is empty!");
+
+return;
+
+}
+
+let order = {
+
+name:document.getElementById("name").value,
+
+email:document.getElementById("email").value,
+
+phone:document.getElementById("phone").value,
+
+address:document.getElementById("address").value,
+
+city:document.getElementById("city").value,
+
+pincode:document.getElementById("pincode").value,
+
+payment:document.getElementById("payment").value,
+
+items:cart,
+date:new Date().toLocaleString(),
+
+status:"Order Placed"
+
+};
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+orders.push(order);
+
+localStorage.setItem("orders",JSON.stringify(orders));
+
+// Clear Cart
+localStorage.removeItem("cart");
+
+// Success Message
+alert("🎉 Order Placed Successfully!");
+
+window.location.href="orders.html";
+
+});
+
+</script>
+
+</body>
+</html>
